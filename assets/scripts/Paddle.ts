@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, director, Director, EventTouch, game, Game, Graphics, input, Input, Node, screen, UITransform, Vec3, view } from 'cc';
+import { _decorator, BoxCollider2D, Color, Component, director, Director, ERigidBody2DType, EventTouch, game, Game, Graphics, input, Input, Node, RigidBody2D, screen, UITransform, Vec3, view } from 'cc';
 
 const { ccclass, property, requireComponent } = _decorator;
 
@@ -10,6 +10,7 @@ export class Paddle extends Component {
 
     private graphics: Graphics;
     private transform: UITransform;
+    private collider: BoxCollider2D;
     private touchId: number | null = null;
     private previousPointerX = 0;
     private minX = 0;
@@ -21,6 +22,10 @@ export class Paddle extends Component {
         this.transform = this.getComponent(UITransform);
         this.graphics = this.node.addComponent(Graphics);
         this.graphics.fillColor = Color.BLACK;
+        this.node.addComponent(RigidBody2D).type = ERigidBody2DType.Animated;
+        this.collider = this.node.addComponent(BoxCollider2D);
+        this.collider.friction = 0;
+        this.collider.restitution = 1;
     }
 
     onEnable() {
@@ -75,6 +80,8 @@ export class Paddle extends Component {
         this.minX = left + width / 2;
         this.maxX = left + this.table.width - width / 2;
         this.transform.setContentSize(width, height);
+        this.collider.size.set(width, height);
+        this.collider.apply();
         // The paddle's top edge touches the Table's outer bottom edge.
         this.node.setPosition(this.clampX(this.node.position.x), bottom - height / 2, 0);
         this.graphics.clear();
