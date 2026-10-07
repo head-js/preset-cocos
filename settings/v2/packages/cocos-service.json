@@ -1,20 +1,31 @@
 {
   "__version__": "3.0.9",
   "game": {
-    "name": "Preset Cocos",
-    "app_id": "UNKNOW",
-    "c_id": "0"
+    "app_id": "613750664",
+    "c_id": "0",
+    "name": "Preset Cocos"
   },
   "appConfigMaps": [
     {
       "app_id": "UNKNOW",
       "config_id": "b8f57a"
+    },
+    {
+      "app_id": "613750664",
+      "config_id": "e7382a"
     }
   ],
   "configs": [
     {
       "app_id": "UNKNOW",
       "config_id": "b8f57a",
+      "config_name": "Default",
+      "config_remarks": "",
+      "services": []
+    },
+    {
+      "app_id": "613750664",
+      "config_id": "e7382a",
       "config_name": "Default",
       "config_remarks": "",
       "services": []
