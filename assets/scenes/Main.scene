@@ -39,6 +39,9 @@
         "__id__": 16
       },
       {
+        "__id__": 20
+      },
+      {
         "__id__": 3
       }
     ],
@@ -60,8 +63,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 480,
-      "y": 320,
+      "x": 400,
+      "y": 720,
       "z": 0
     },
     "_lrot": {
@@ -181,8 +184,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 800,
+      "height": 1440
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -452,8 +455,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 800,
+      "height": 1440
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -501,5 +504,83 @@
     "_enabled": true,
     "__prefab": null,
     "_id": "18f6cc7d-cd97-4464-9b58-466ce1fe7872"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "TableFrame",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 21
+      },
+      {
+        "__id__": 22
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "a4481864-568f-47a7-9e4a-7ff55c5fac64"
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 20
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 720,
+      "height": 1360
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_id": "626d9bb2-0c18-490f-a6f5-0f1de1a6627c"
+  },
+  {
+    "__type__": "860c7mEvqZIZ58R3KOBJ66P",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 20
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": "54c670ef-6563-43e6-88ba-6809d06d9c5b"
   }
 ]
