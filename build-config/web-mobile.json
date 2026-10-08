@@ -1,0 +1,14 @@
+{
+  "platform": "web-mobile",
+  "buildPath": "project://build",
+  "outputName": "docs",
+  "debug": false,
+  "md5Cache": true,
+  "packages": {
+    "web-mobile": {
+      "useWebGPU": false,
+      "orientation": "portrait",
+      "embedWebDebugger": false
+    }
+  }
+}
