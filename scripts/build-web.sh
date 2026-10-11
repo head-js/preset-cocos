@@ -23,7 +23,10 @@ set -e
 
 if [[ ! -f "$STAGING_DIR/index.html" ]]; then
   echo "Cocos build did not produce $STAGING_DIR/index.html (exit $CREATOR_STATUS)." >&2
-  exit "${CREATOR_STATUS:-1}"
+  if [[ "$CREATOR_STATUS" -ne 0 ]]; then
+    exit "$CREATOR_STATUS"
+  fi
+  exit 1
 fi
 
 rm -rf "$TARGET_DIR"

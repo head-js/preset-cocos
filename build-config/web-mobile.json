@@ -4,6 +4,7 @@
   "outputName": "docs",
   "debug": false,
   "md5Cache": true,
+  "engineModulesConfigKey": "paddle-2d",
   "packages": {
     "web-mobile": {
       "useWebGPU": false,
