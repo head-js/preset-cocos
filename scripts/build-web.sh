@@ -29,6 +29,10 @@ if [[ ! -f "$STAGING_DIR/index.html" ]]; then
   exit 1
 fi
 
+# The bundled BallSymbols font is distributed under SIL OFL 1.1.
+mkdir -p "$STAGING_DIR/licenses"
+cp "$ROOT_DIR/assets/fonts/OFL.txt" "$STAGING_DIR/licenses/BallSymbols-OFL.txt"
+
 rm -rf "$TARGET_DIR"
 cp -R "$STAGING_DIR" "$TARGET_DIR"
 

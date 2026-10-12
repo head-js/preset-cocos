@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, HorizontalTextAlignment, Label, Node, Overflow, Sprite, SpriteFrame, UITransform, VerticalTextAlignment } from 'cc';
+import { _decorator, Color, Component, Font, HorizontalTextAlignment, Label, Node, Overflow, Sprite, SpriteFrame, UITransform, VerticalTextAlignment } from 'cc';
 
 const { ccclass, property } = _decorator;
 
@@ -7,48 +7,51 @@ export class BallView extends Component {
     @property
     symbol = '✖️';
 
+    @property(Font)
+    symbolFont: Font = null;
+
     @property(SpriteFrame)
     spriteFrame: SpriteFrame = null;
 
     private visual: Node = null;
-    private initialized = false;
 
     initialize(diameter: number) {
+        if (this.visual) {
+            return;
+        }
         const ink = diameter * 2 / 3;
-        if (!this.initialized || !this.visual) {
-            if (this.visual) {
-                this.visual.destroy();
+        this.visual = new Node('Visual');
+        this.visual.layer = this.node.layer;
+        this.visual.setPosition(0, 0, 0);
+        const transform = this.visual.addComponent(UITransform);
+        transform.setAnchorPoint(0.5, 0.5);
+        this.node.addChild(this.visual);
+
+        if (this.spriteFrame) {
+            const sprite = this.visual.addComponent(Sprite);
+            sprite.spriteFrame = this.spriteFrame;
+            sprite.color = Color.WHITE;
+            sprite.sizeMode = Sprite.SizeMode.CUSTOM;
+            sprite.trim = false;
+            const size = this.spriteFrame.originalSize;
+            const scale = ink / Math.max(size.width, size.height);
+            transform.setContentSize(size.width * scale, size.height * scale);
+        } else {
+            const label = this.visual.addComponent(Label);
+            // Keep the requested symbols, but render their monochrome text forms.
+            label.string = this.symbol.replace(/[\uFE0E\uFE0F]/g, '') + '\uFE0E';
+            if (this.symbolFont) {
+                label.font = this.symbolFont;
+                label.useSystemFont = false;
             }
-            this.visual = new Node('Visual');
-            this.visual.layer = this.node.layer;
-            this.visual.setPosition(0, 0, 0);
-            this.visual.addComponent(UITransform);
-            const transform = this.visual.getComponent(UITransform);
-            transform.setAnchorPoint(0.5, 0.5);
-            this.node.addChild(this.visual);
-            if (this.spriteFrame) {
-                const sprite = this.visual.addComponent(Sprite);
-                sprite.spriteFrame = this.spriteFrame;
-                sprite.color = Color.WHITE;
-                sprite.sizeMode = Sprite.SizeMode.CUSTOM;
-                transform.setContentSize(ink, ink);
-            } else {
-                const label = this.visual.addComponent(Label);
-                label.string = this.symbol;
-                label.color = Color.BLACK;
-                // Measured on macOS (CoreText): ✖️ ink is 1.0 em square, advance 1.08 em,
-                // glyph y ∈ [-0.125, +0.875] em around the alphabetic baseline. With
-                // lineHeight = fontSize the web renderer's CENTER baseline (0.87 em from
-                // the box top) puts the ink centered in the node box, so ink = fontSize.
-                label.fontSize = ink;
-                label.lineHeight = ink;
-                label.horizontalAlign = HorizontalTextAlignment.CENTER;
-                label.verticalAlign = VerticalTextAlignment.CENTER;
-                label.overflow = Overflow.SHRINK;
-                // Width 1.1 x ink keeps the 1.08 em advance from triggering SHRINK.
-                transform.setContentSize(Math.ceil(ink * 1.1), ink);
-            }
-            this.initialized = true;
+            label.color = Color.BLACK;
+            // BallSymbols normalizes both glyphs to 1 em ink and a 1.1 em advance.
+            label.fontSize = ink;
+            label.lineHeight = ink;
+            label.horizontalAlign = HorizontalTextAlignment.CENTER;
+            label.verticalAlign = VerticalTextAlignment.CENTER;
+            label.overflow = Overflow.SHRINK;
+            transform.setContentSize(Math.ceil(ink * 1.1), ink);
         }
     }
 }

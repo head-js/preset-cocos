@@ -4,6 +4,10 @@ import { BallView } from './BallView';
 
 const { ccclass, property, requireComponent } = _decorator;
 
+// Physics group index 1 (bit 1 << 1) as defined in settings/v2/packages/project.json;
+// the Ball-vs-Ball matrix entry is off, so two balls pass through each other.
+const BALL_GROUP = 1 << 1;
+
 @ccclass('Ball')
 @requireComponent(UITransform)
 export class Ball extends Component {
@@ -40,6 +44,7 @@ export class Ball extends Component {
         }
 
         this.body = this.node.addComponent(RigidBody2D);
+        this.body.group = BALL_GROUP;
         this.body.gravityScale = 0;
         this.body.linearDamping = 0;
         this.body.angularDamping = 0;
@@ -49,6 +54,7 @@ export class Ball extends Component {
         collider.offset.set(0, 0);
         collider.friction = 0;
         collider.restitution = 1;
+        collider.group = BALL_GROUP;
         collider.apply();
     }
 
